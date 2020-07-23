@@ -21,6 +21,7 @@ app.use('/Condidat', Condidat);
 app.use('/Etablisement',Etablisement);
 app.use('/uploadimg',uploadimg);
 
+
 const server = http.createServer(app);  
 const io = socketIO(server);
 app.set('io', io);
