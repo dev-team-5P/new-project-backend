@@ -17,6 +17,28 @@ router.post('/register',async(req,res)=>{
         res.send(etablisement);
     }
 });
-
+// api getAll etabliissement   //
+router.get(
+    "/get",
+    async (req, res) => {
+    //   const superAdmin = await Admin.findOne({
+    //     _id: req.user.admin._id,
+    //     role: "superAdmin",
+    //   });
+  
+    //   if (!superAdmin) return res.send({ message: "Unauthorized" });
+  
+      const pageSize = +req.query.pagesize;
+      const currentPage = +req.query.page;
+      const etabQwery = Etablisement.find();
+  
+      if (pageSize && currentPage) {
+        etabQwery.skip(pageSize * (currentPage - 1)).limit(pageSize);
+      }
+      const etablisement = await etabQwery;
+      const EtabCount = await Etablisement.countDocuments();
+      res.send({ etablisement: etablisement, count: EtabCount });
+    }
+  );
 
 module.exports = router
