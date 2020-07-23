@@ -1,6 +1,7 @@
 const express = require('express');
 const bycrypt = require('bcryptjs');
 const SuperAdmin = require('./../Models/superAdminSchema');
+const Etablisement = require('./../Models/EtablisementSchema');
 const passport = require('passport');
 
 const router = express.Router();
@@ -28,6 +29,12 @@ passport.authenticate("bearer", { session: false }),
             res.send(resultat);
         }
     })
+})
+/**************get etablisement for super admin ****** */
+router.get('/getetablisement', passport.authenticate("bearer",{ session: false}),
+async(req,res)=>{
+    const alletab = await Etablisement.find();
+    res.status(401).send(alletab);
 })
 module.exports = router;
 
