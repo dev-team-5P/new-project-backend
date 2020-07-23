@@ -3,6 +3,7 @@ const bycrpt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
 const Etablisement = require('./../Models/EtablisementSchema');
 const Condidat = require('./../Models/CondidatSchema');
+const resetToken = require("./resetToken");
 
 
 const router = express.Router();
@@ -49,6 +50,7 @@ router.post('', async(req,res)=>{
      return res.status(401).send({ message: "wrong email or password" });
         
     }
-})
+});
+router.post("/req-reset-password", resetToken.ResetPassword);
 
 module.exports = router;
