@@ -3,7 +3,8 @@ const bycrpt = require('bcryptjs');
 const Etablisement = require('./../Models/EtablisementSchema');
 const Condidat = require('./../Models/CondidatSchema');
 // const passport = require('./../passport');
-const passport = require('passport')
+const passport = require('passport');
+const { findOne } = require('./../Models/EtablisementSchema');
 const router = express.Router()
 /***************Register de l'etablisement ********** */
 router.post('/register',async(req,res)=>{
@@ -53,8 +54,14 @@ async(req,res)=>{
     await condidat.save();
     await Condidat.findByIdAndUpdate(condidat._id, {etablisement: etablisement._id});
     res.send(condidat)
-}
-)
+})
+/********* read condida for etablisement ******** */
+router.get('/getcondidat',
+passport.authenticate("bearer", { session: false }),
+async(req,res)=>{
+    const getcondidat = await Condidat.find({etablisement:req.user.etablisement._id});
+    res.send(getcondidat)
+})
 
 
 module.exports = router
