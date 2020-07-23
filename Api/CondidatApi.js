@@ -1,29 +1,42 @@
 const express = require('express');
 const bycrypt = require('bcryptjs');
 const Condidat = require('./../Models/CondidatSchema');
-const Etablisement = require('./../Models/EtablisementSchema')
+const Etablisement = require('./../Models/EtablisementSchema');
+const passport = require('passport');
 
 const router = express.Router();
-
-router.post('/:id/register',async (req,res)=>{
+/************Register Condidat ********* */
+router.post('/:id/register', async (req, res) => {
     const condidat = new Condidat(req.body);
     const etablisement = await Etablisement.findById(req.params.id);
-    if (!etablisement){
+    if (!etablisement) {
         return res.status(400).send({
             message: "Etablisement does not exist",
         });
     } else {
-        const uniquecondidat = await Condidat.findOne({email: req.body.email}); // verification email unique
+        const uniquecondidat = await Condidat.findOne({ email: req.body.email }); // verification email unique
         if (uniquecondidat) {
             return res.status(400).send({ message: "email already in use" });
         } else {
             const salt = await bycrypt.genSalt(10);
-            condidat.password = await bycrypt.hash(condidat.password,salt);
+            condidat.password = await bycrypt.hash(condidat.password, salt);
             await condidat.save();
-            await Condidat.findByIdAndUpdate(condidat._id,{etablisement:etablisement._id})
+            await Condidat.findByIdAndUpdate(condidat._id, { etablisement: etablisement._id })
             res.send(condidat);
         }
     }
 });
+/*************parametrage de compte for condidat ******** */
+router.put('/Parametrage/:id', 
+passport.authenticate("bearer", { session: false }),
+(req,res)=>{
+    Condidat.findByIdAndUpdate(req.params.id,req.body,(err,resultat)=>{
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(resultat);
+        }
+    })
+})
 
 module.exports = router

@@ -1,7 +1,8 @@
 const passport = require("passport");
 const BearerStrategy = require("passport-http-bearer").Strategy;
-// const Admin = require("./models/adminSchema");
-// const User = require("./models/userSchema");
+const Etablisement = require("./Models/EtablisementSchema");
+const Condidat = require("./Models/CondidatSchema");
+const SuperAdmin = require("./Models/superAdminSchema");
 const jwt = require("jsonwebtoken");
 
 // passport.use(
@@ -22,16 +23,20 @@ const jwt = require("jsonwebtoken");
 
 
 
-// passport.use(
-//   new BearerStrategy(async (token, done) => {
-//     const tokenData = await jwt.verify(token, "secret");
-//     const admin = await Admin.findOne({ _id: tokenData.data._id });
-//     if (admin) return done(null, { admin });
-//     // done(null, false);
-
-//     const user = await User.findOne({ _id: tokenData.data._id });
-//     if (!user) {
-//       return done(null, false);
-//     } else return done(null, { user });
-//   })
-// );
+passport.use(
+  new BearerStrategy(async (token, done) => {
+    const tokenData = await jwt.verify(token, "secret");
+    console.log(tokenData);
+    const etablisement = await Etablisement.findOne({ _id: tokenData.data._id });
+    const condidat = await Condidat.findOne({ _id: tokenData.data._id });
+    const superadmin = await SuperAdmin.findOne({ _id: tokenData.data._id });
+    console.log(superadmin);
+    if (etablisement) {
+      return done(null, { etablisement });
+  } else if (condidat) {
+     return done(null, { condidat });
+    }   else if (superadmin) {
+      return done(null, { superadmin });  
+    } 
+  })
+);

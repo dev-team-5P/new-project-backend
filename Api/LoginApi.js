@@ -24,9 +24,7 @@ router.post('', async(req,res)=>{
                 return res.status(401).send({ message: "wrong email or password" }); // verification validité password etablisement//
             } else {
                 let token = jwt.sign({
-                    data:{
-                        etablisement: etablisement
-                    },
+                    data: etablisement 
                 },
                 "secret");
                 res.send({ message: token, role:'Etablisement' });
@@ -40,9 +38,8 @@ router.post('', async(req,res)=>{
                 return res.status(401).send({ message: "wrong email or password" }); // verification validité password condidat//   
               } else {
                 let token = jwt.sign({
-                    data:{
-                        condidat: condidat
-                    },
+                    data:condidat
+                 
                 },
                 "secret");
                 res.send({ message: token, role:'Condidat' });
@@ -56,9 +53,8 @@ router.post('', async(req,res)=>{
                 return res.status(401).send({ message: "wrong email or password" }); // verification validité password superAdmin//   
               } else {
                 let token = jwt.sign({
-                    data:{
-                        superAdmin: superAdmin
-                    },
+                    data:superAdmin
+                   
                 },
                 "secret");
                 res.send({ message: token, role:'SuperAdmin' });
