@@ -1,5 +1,7 @@
 const express = require('express');
 const bycrpt = require('bcryptjs');
+const passport = require("passport");
+const Admin = require("./../Models/superAdminSchema");
 const Etablisement = require('./../Models/EtablisementSchema');
 
 const router = express.Router()
@@ -20,13 +22,14 @@ router.post('/register',async(req,res)=>{
 // api getAll etabliissement   //
 router.get(
     "/get",
+  // passport.authenticate("bearer", { session: false }),
     async (req, res) => {
     //   const superAdmin = await Admin.findOne({
     //     _id: req.user.admin._id,
     //     role: "superAdmin",
     //   });
   
-    //   if (!superAdmin) return res.send({ message: "Unauthorized" });
+      if (!superAdmin) return res.send({ message: "Unauthorized" });
   
       const pageSize = +req.query.pagesize;
       const currentPage = +req.query.page;
