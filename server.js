@@ -7,7 +7,7 @@ const uploadimg = require('./Api/uploadphoto');
 const login = require('./Api/LoginApi');
 const superadmin = require('./Api//superadminApi');
 
-const passport = require("./passport")
+require("./passport")
 
 
 const http = require('http');

@@ -3,9 +3,10 @@ const bycrpt = require('bcryptjs');
 const passport = require("passport");
 const Admin = require("./../Models/superAdminSchema");
 const Etablisement = require('./../Models/EtablisementSchema');
-
+// const passport = require('./../passport');
+const passport = require('passport')
 const router = express.Router()
-
+/***************Register de l'etablisement ********** */
 router.post('/register',async(req,res)=>{
     const etablisement = Etablisement(req.body);
     const uniqueetablisement = await Etablisement.findOne({email: req.body.email});
@@ -19,29 +20,29 @@ router.post('/register',async(req,res)=>{
         res.send(etablisement);
     }
 });
-// api getAll etabliissement   //
-router.get(
-    "/get",
-  // passport.authenticate("bearer", { session: false }),
-    async (req, res) => {
-    //   const superAdmin = await Admin.findOne({
-    //     _id: req.user.admin._id,
-    //     role: "superAdmin",
-    //   });
-  
-      if (!superAdmin) return res.send({ message: "Unauthorized" });
-  
-      const pageSize = +req.query.pagesize;
-      const currentPage = +req.query.page;
-      const etabQwery = Etablisement.find();
-  
-      if (pageSize && currentPage) {
-        etabQwery.skip(pageSize * (currentPage - 1)).limit(pageSize);
-      }
-      const etablisement = await etabQwery;
-      const EtabCount = await Etablisement.countDocuments();
-      res.send({ etablisement: etablisement, count: EtabCount });
-    }
-  );
+/************Parametrage de compte for l'etablisement ************ */
+router.put('/Parametrage/:id', 
+passport.authenticate("bearer", { session: false }),
+(req,res)=>{
+    Etablisement.findByIdAndUpdate(req.params.id,req.body,(err,resultat)=>{
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(resultat);
+        }
+    })
+})
+/***********************update etablisement four superadmin *** */
+router.put('/updatesuper/:id', 
+(req,res)=>{
+    Etablisement.findByIdAndUpdate(req.params.id,req.body,(err,resultat)=>{
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(resultat);
+        }
+    })
+})
+
 
 module.exports = router
