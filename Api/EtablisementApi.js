@@ -1,6 +1,7 @@
 const express = require('express');
 const bycrpt = require('bcryptjs');
 const Etablisement = require('./../Models/EtablisementSchema');
+const Condidat = require('./../Models/CondidatSchema');
 // const passport = require('./../passport');
 const passport = require('passport')
 const router = express.Router()
@@ -41,6 +42,19 @@ router.put('/updatesuper/:id',
         }
     })
 })
+/***************create condidat for etaablisement ** */
+router.post('/ajoucondidat',
+passport.authenticate("bearer", { session: false }),
+async(req,res)=>{
+    const etablisement = await Etablisement.findById(req.user.etablisement._id);
+
+    if (!etablisement) return res.send({ message: "Unauthorized" });
+    const condidat = await Condidat(req.body);
+    await condidat.save();
+    await Condidat.findByIdAndUpdate(condidat._id, {etablisement: etablisement._id});
+    res.send(condidat)
+}
+)
 
 
 module.exports = router
