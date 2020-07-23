@@ -36,5 +36,12 @@ async(req,res)=>{
     const alletab = await Etablisement.find();
     res.status(401).send(alletab);
 })
+/************Delete etablisement for super admin ******* */
+router.delete('/deleteetab/:id' ,passport.authenticate("bearer",{ session: false}),
+async(req,res)=>{
+    await Etablisement.findByIdAndDelete(req.params.id);
+    res.send({ message: "Etablisement Deleted" });
+    
+})
 module.exports = router;
 
