@@ -1,6 +1,5 @@
 const express = require('express');
 const bycrpt = require('bcryptjs');
-const passport = require("passport");
 const Admin = require("./../Models/superAdminSchema");
 const Etablisement = require('./../Models/EtablisementSchema');
 // const passport = require('./../passport');
