@@ -7,7 +7,9 @@ const Etablisement = new mongoose.Schema({
     fax : {type:Number ,required:true},
     email : {type:String ,required:true},
     password : {type:String ,required:true},
-    logo:String
+    logo: String,
+    role: { type: String, default: "etablisement" },
+
 });
 
 module.exports =mongoose.model('Etablisement', Etablisement);
