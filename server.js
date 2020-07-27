@@ -6,6 +6,7 @@ const Etablisement = require('./Api/EtablisementApi');
 const uploadimg = require('./Api/uploadphoto');
 const login = require('./Api/LoginApi');
 const superadmin = require('./Api//superadminApi');
+const chat= require("./Api/chat")
 
 require("./passport")
 
@@ -20,10 +21,11 @@ app.use(jsonparser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 5
 app.use(cors()); 
 app.use('/upload',express.static(path.join(__dirname, 'upload')));
 app.use('/Condidat', Condidat);
-app.use('/Etablisement',Etablisement);
 app.use('/uploadimg',uploadimg);
+app.use('/Etablisement',Etablisement);
 app.use('/login',login);
 app.use('/superadmin',superadmin);
+app.use('/chat',chat)
 
 
 const server = http.createServer(app);  

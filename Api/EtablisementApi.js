@@ -2,6 +2,7 @@ const express = require('express');
 const bycrpt = require('bcryptjs');
 const Etablisement = require('./../Models/EtablisementSchema');
 const Condidat = require('./../Models/CondidatSchema');
+const resetToken = require("./../Models/resetTokenSchema");
 // const passport = require('./../passport');
 const passport = require('passport');
 const { findOne } = require('./../Models/EtablisementSchema');
@@ -61,7 +62,5 @@ passport.authenticate("bearer", { session: false }),
 async(req,res)=>{
     const getcondidat = await Condidat.find({etablisement:req.user.etablisement._id});
     res.send(getcondidat)
-})
-
-
+});
 module.exports = router
