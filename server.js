@@ -5,8 +5,9 @@ const Condidat = require('./Api/CondidatApi');
 const Etablisement = require('./Api/EtablisementApi');
 const uploadimg = require('./Api/uploadphoto');
 const login = require('./Api/LoginApi');
+const superadmin = require('./Api//superadminApi');
 
-const passport = require("./passport")
+require("./passport")
 
 
 const http = require('http');
@@ -21,7 +22,8 @@ app.use('/upload',express.static(path.join(__dirname, 'upload')));
 app.use('/Condidat', Condidat);
 app.use('/Etablisement',Etablisement);
 app.use('/uploadimg',uploadimg);
-app.use('/login',login)
+app.use('/login',login);
+app.use('/superadmin',superadmin);
 
 
 const server = http.createServer(app);  
