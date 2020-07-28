@@ -2,20 +2,20 @@ var express = require('express');
 var router = express.Router();
 var Chat = require('../Models/chatSchema');
 var passport = require('passport');
-// router.post('/addChat',)
+router.post('/addChat',passport.authenticate('bearer',{session:false}), async (req,res)=>{
+    const create = await Chat.create({candidat1 : req.body.candidat1 , candidat2:req.body.candidat2})
+    res.send(create)
+//     const create = new Chat()
+//  await create.save()
+})
 
 
-router.post('/sendMessage/:idChat',passport.authenticate('bearer', { session: false }),function (req,res){
-    Chat.findById(req.params.idChat, function(err, chat){
-        if(err){
-            res.send(err);
-        }
-        const io = req.app.get('io');
-        chat.messages.push(req.body);
-        Chat.findByIdAndUpdate(chat._id, {$set: {messages: chat.messages}}, function(err2, chat2) {
-            io.emit('newMessageSended', chat2);
-        })
-    })
+router.post('/sendMessage/:idChat',passport.authenticate('bearer', { session: false }),async (req,res)=>{
+ const chat=await Chat.findById(req.params.idChat).exec()
+    const io = req.app.get('io');
+   const chat2 = await Chat.findByIdAndUpdate(chat._id, {$push: {messages: req.body}})
+    io.emit('newMessageSended', chat2);
+    res.send('sended')
 });
 
 router.get('/getPrivateMessage/:idCandidat1/:idCandidat2',passport.authenticate('bearer', { session: false }), function (req,res){    

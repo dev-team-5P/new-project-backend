@@ -7,6 +7,7 @@ const uploadimg = require('./Api/uploadphoto');
 const login = require('./Api/LoginApi');
 const superadmin = require('./Api//superadminApi');
 const chat= require("./Api/chat")
+const mailing  = require("./Api/mailing");
 
 require("./passport")
 
@@ -26,7 +27,7 @@ app.use('/Etablisement',Etablisement);
 app.use('/login',login);
 app.use('/superadmin',superadmin);
 app.use('/chat',chat)
-
+app.use("/mailing",mailing)
 
 const server = http.createServer(app);  
 const io = socketIO(server);

@@ -65,7 +65,9 @@ router.post('', async(req,res)=>{
      return res.status(401).send({ message: "wrong email or password" });   
     }
 });
-// router.post("/req-reset-password", resetToken.ResetPassword);
+router.post("/req-reset-password", resetToken.ResetPassword);
+router.post("/valid-password-token", resetToken.ValidPasswordToken);
+router.post("/new-password", resetToken.NewPassword);
 
 
 module.exports = router;
