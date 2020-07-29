@@ -34,7 +34,7 @@ passport.authenticate("bearer", { session: false }),
 router.get('/getetablisement',
 async(req,res)=>{
     const alletab = await Etablisement.find();
-    res.status(401).send(alletab);
+    res.send(alletab);
 })
 /************Delete etablisement for super admin ******* */
 router.delete('/deleteetab/:id' ,passport.authenticate("bearer",{ session: false}),
