@@ -1,6 +1,5 @@
 const express = require('express');
 const bycrpt = require('bcryptjs');
-const Admin = require("./../Models/superAdminSchema");
 const Etablisement = require('./../Models/EtablisementSchema');
 const Condidat = require('./../Models/CondidatSchema');
 const resetToken = require("./../Models/resetTokenSchema");
