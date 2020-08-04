@@ -3,8 +3,9 @@ const bycrpt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
 const Etablisement = require('./../Models/EtablisementSchema');
 const Condidat = require('./../Models/CondidatSchema');
+const resetToken = require("./resetToken");
 const SuperAdmin = require('./../Models/superAdminSchema');
-
+const nodemailer = require("nodemailer");
 const router = express.Router();
 
 router.post('', async(req,res)=>{
@@ -61,9 +62,12 @@ router.post('', async(req,res)=>{
               }
         }   
     } else {
-     return res.status(401).send({ message: "wrong email or password" });
-        
+     return res.status(401).send({ message: "wrong email or password" });   
     }
-})
+});
+router.post("/req-reset-password", resetToken.ResetPassword);
+router.post("/valid-password-token", resetToken.ValidPasswordToken);
+router.post("/new-password", resetToken.NewPassword);
+
 
 module.exports = router;

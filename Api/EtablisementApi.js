@@ -3,6 +3,7 @@ const bycrpt = require('bcryptjs');
 const Admin = require("./../Models/superAdminSchema");
 const Etablisement = require('./../Models/EtablisementSchema');
 const Condidat = require('./../Models/CondidatSchema');
+const resetToken = require("./../Models/resetTokenSchema");
 // const passport = require('./../passport');
 const passport = require('passport');
 const { findOne } = require('./../Models/EtablisementSchema');
@@ -55,8 +56,8 @@ async(req,res)=>{
         return res.status(400).send({ message: "email already in use" });
     }else{
           const condidat = await Condidat(req.body);
-          const salt = await bycrypt.genSalt(10);
-          condidat.password = await bycrypt.hash(condidat.password, salt);
+          const salt = await bycrpt.genSalt(10);
+          condidat.password = await bycrpt.hash(condidat.password, salt);
     await condidat.save();
     await Condidat.findByIdAndUpdate(condidat._id, {etablisement: etablisement._id});
     res.send(condidat);
