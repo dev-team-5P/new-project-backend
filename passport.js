@@ -1,6 +1,9 @@
 const passport = require("passport");
 const BearerStrategy = require("passport-http-bearer").Strategy;
-const Admin = require("./Models/superAdminSchema");
+const SuperAdmin = require("./Models/superAdminSchema");
+const Etablisement = require('./Models/EtablisementSchema');
+const Condidat = require('./Models/CondidatSchema');
+
 // const User = require("./models/userSchema");
 const jwt = require("jsonwebtoken");
 

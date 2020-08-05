@@ -31,16 +31,24 @@ passport.authenticate("bearer", { session: false }),
     })
 })
 /**************get etablisement for super admin ****** */
-router.get('/getetablisement', passport.authenticate("bearer",{ session: false}),
+router.get('/getetablisement',
+//  passport.authenticate("bearer",{ session: false}),
 async(req,res)=>{
     const alletab = await Etablisement.find();
     res.send(alletab);
 })
 /************Delete etablisement for super admin ******* */
-router.delete('/deleteetab/:id' ,passport.authenticate("bearer",{ session: false}),
+router.delete('/deleteetab/:id' ,
+// passport.authenticate("bearer",{ session: false}),
 async(req,res)=>{
     await Etablisement.findByIdAndDelete(req.params.id);
-    res.send({ message: "Etablisement Deleted" });
-    
+    res.send({ message: "Etablisement Deleted" });    
 })
+// api get etab par id  //
+router.get( "/:id",
+    // passport.authenticate("bearer", { session: false }),
+ async (req, res) => {
+ const etablisement = await Etablisement.findById(req.params.id);
+ res.send(etablisement);
+ });
 module.exports = router;
