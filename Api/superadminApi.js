@@ -30,6 +30,27 @@ passport.authenticate("bearer", { session: false }),
         }
     })
 })
+/*****change password ******** */
+router.put('/changepass/:id',
+passport.authenticate("bearer", { session: false}),
+ async(req,res)=>{
+    // const superAdmin = await SuperAdmin.findById(req.user.etablisement._id);
+   await bycrypt.compare(req.body.oldpass , req.user.superadmin.password).then((oldpass)=>
+    {
+        console.log(req.user);
+        console.log(oldpass);
+        if (oldpass) {
+            const salt =  bycrypt.genSalt(10).then((salt) => {
+                bycrypt.hash(req.body.newpass, salt).then((newpass)=>{
+                    SuperAdmin.findByIdAndUpdate(req.params.id, {password:newpass}  , (err,resultat)=>{
+                        if (err) { res.send("mamchach") }
+                        res.send(resultat)
+                    });
+                })
+            })
+        } else {res.send({message:"you old pass invalid"})  }
+    })
+})
 /**************get etablisement for super admin ****** */
 router.get('/getetablisement', passport.authenticate("bearer",{ session: false}),
 async(req,res)=>{
