@@ -46,7 +46,7 @@ async(req,res)=>{
 })
 // api get etab par id  //
 router.get( "/:id",
-    // passport.authenticate("bearer", { session: false }),
+    passport.authenticate("bearer", { session: false }),
  async (req, res) => {
  const etablisement = await Etablisement.findById(req.params.id);
  res.send(etablisement);
