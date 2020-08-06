@@ -102,7 +102,8 @@ router.delete('/delete/:id',
         if (!etablisement) return res.send({ message: "Unauthorized" });
         await Condidat.findByIdAndDelete(req.params.id);
         res.send({ message: 'User Deleted' })
-    })
+    });
+    
 
 
 module.exports = router

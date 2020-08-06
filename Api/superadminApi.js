@@ -31,7 +31,7 @@ passport.authenticate("bearer", { session: false }),
     })
 })
 /**************get etablisement for super admin ****** */
-router.get('/getetablisement', passport.authenticate("bearer",{ session: false}),
+router.get('/getetablisement',
 async(req,res)=>{
     const alletab = await Etablisement.find();
     res.send(alletab);

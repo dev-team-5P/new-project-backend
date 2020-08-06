@@ -39,5 +39,14 @@ passport.authenticate("bearer", { session: false }),
         }
     })
 })
+router.get('/getListeCandidat',function (req,res){    
+    Condidat.find( function(err,users){
+            if(err){
+                res.send(err)
+            } else {
+                res.send(users);
+            }
+})
+});
 
 module.exports = router
