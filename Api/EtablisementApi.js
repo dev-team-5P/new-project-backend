@@ -33,6 +33,27 @@ router.put('/Parametrage/:id',
             }
         })
     })
+    /*******change pass etab ********** */
+    router.put('/changepass/:id',
+passport.authenticate("bearer", { session: false}),
+ async(req,res)=>{
+    // const superAdmin = await SuperAdmin.findById(req.user.etablisement._id);
+   await bycrpt.compare(req.body.oldpass , req.user.etablisement.password).then((oldpass)=>
+    {
+        console.log(req.user);
+        console.log(oldpass);
+        if (oldpass) {
+            const salt =  bycrpt.genSalt(10).then((salt) => {
+                bycrpt.hash(req.body.newpass, salt).then((newpass)=>{
+                    Etablisement.findByIdAndUpdate(req.params.id, {password:newpass}  , (err,resultat)=>{
+                        if (err) { res.send("mamchach") }
+                        res.send(resultat)
+                    });
+                })
+            })
+        } else {res.send({message:"you old pass invalid"})  }
+    })
+})
 /***********************update etablisement four superadmin *** */
 router.put('/updatesuper/:id',
     (req, res) => {
