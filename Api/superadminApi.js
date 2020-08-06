@@ -53,7 +53,6 @@ passport.authenticate("bearer", { session: false}),
 })
 /**************get etablisement for super admin ****** */
 router.get('/getetablisement',
-
 async(req,res)=>{
     const alletab = await Etablisement.find();
     res.send(alletab);

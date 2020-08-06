@@ -39,9 +39,8 @@ passport.authenticate("bearer", { session: false }),
         }
     })
 })
-
-router.get('/getListeCandidat',function (req,res){    
-    Condidat.find( function(err,users){
+router.get('/getListeCandidat/:id',function (req,res){    
+    Condidat.find({etablisement: req.params.id}, function(err,users){
             if(err){
                 res.send(err)
             } else {
