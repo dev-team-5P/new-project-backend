@@ -48,5 +48,10 @@ router.get('/getListeCandidat',function (req,res){
             }
 })
 });
+/**************get etablisement for candidate ****** */
+router.get('/etablisement', async(req,res)=>{
+    const alletab = await Etablisement.find();
+    res.send(alletab);
+})
 
 module.exports = router
