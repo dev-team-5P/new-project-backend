@@ -2,10 +2,10 @@ var express = require('express');
 var router = express.Router();
 var Chat = require('../Models/chatSchema');
 var passport = require('passport');
-router.post('/addChat',passport.authenticate('bearer',{session:false}), async (req,res)=>{
-    const create = await Chat.create({candidat1 : req.body.candidat1 , candidat2:req.body.candidat2})
-    res.send(create)
-})
+// router.post('/addChat',passport.authenticate('bearer',{session:false}), async (req,res)=>{
+//     const create = await Chat.create({candidat1 : req.body.candidat1 , candidat2:req.body.candidat2})
+//     res.send(create)
+// })
 
 
 router.post('/sendMessage/:idChat',passport.authenticate('bearer', { session: false }),async (req,res)=>{
