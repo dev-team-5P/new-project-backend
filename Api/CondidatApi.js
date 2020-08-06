@@ -39,6 +39,16 @@ passport.authenticate("bearer", { session: false }),
         }
     })
 })
+
+router.get('/getListeCandidat',function (req,res){    
+    Condidat.find( function(err,users){
+            if(err){
+                res.send(err)
+            } else {
+                res.send(users);
+            }
+})
+});
 /**************get etablisement for candidate ****** */
 router.get('/etablisement', async(req,res)=>{
     const alletab = await Etablisement.find();

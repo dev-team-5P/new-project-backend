@@ -5,8 +5,6 @@ var passport = require('passport');
 router.post('/addChat',passport.authenticate('bearer',{session:false}), async (req,res)=>{
     const create = await Chat.create({candidat1 : req.body.candidat1 , candidat2:req.body.candidat2})
     res.send(create)
-//     const create = new Chat()
-//  await create.save()
 })
 
 
