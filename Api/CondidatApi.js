@@ -49,6 +49,26 @@ router.get('/getListeCandidat',function (req,res){
             }
 })
 });
+/*****change password ******** */
+router.put('/changepasscand/:id',
+passport.authenticate("bearer", { session: false}),
+ async(req,res)=>{ 
+   await bycrypt.compare(req.body.oldpass , req.user.condidat.password).then((oldpass)=>
+    {
+        console.log(req.user);
+        console.log(oldpass);
+        if (oldpass) {
+            const salt =  bycrypt.genSalt(10).then((salt) => {
+                bycrypt.hash(req.body.newpass, salt).then((newpass)=>{
+                    Condidat.findByIdAndUpdate(req.params.id, {password:newpass}  , (err,resultat)=>{
+                        if (err) { res.send("not match") }
+                        res.send(resultat)
+                    });
+                })
+            })
+        } else {res.send({message:"you old pass invalid"})  }
+    })
+})
 /**************get etablisement for candidate ****** */
 router.get('/etablisement', async(req,res)=>{
     const alletab = await Etablisement.find();
