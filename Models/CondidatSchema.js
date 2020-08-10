@@ -11,7 +11,11 @@ const Condidat = new mongoose.Schema({
     etablisement: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Etablisement"
-    }
+    },
+    resetToken: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "RestToken",
+      }
 });
 
 module.exports = mongoose.model('Condidat', Condidat);

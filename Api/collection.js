@@ -10,7 +10,7 @@ module.exports = {
     else if (Candidat) return candidat;
   },
   async getCollectinById(candidatToken) {
-    const establishementId = await Etablisement.findOne({ resetToken: etablismentToken._id });
+    const establishementId = await Etablisement.findOne({ resetToken: candidatToken._id });
     const candidatId = await candidat.findOne({ resetToken: candidatToken._id });
     if (establishementId) return Etablisement;
     else if (candidatId) return candidat;
