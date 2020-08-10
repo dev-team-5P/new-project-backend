@@ -13,6 +13,10 @@ const Etablisement = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Admin",
     },
+    resetToken: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "RestToken",
+    }
 });
 
 module.exports =mongoose.model('Etablisement', Etablisement);
