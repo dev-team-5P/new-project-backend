@@ -7,7 +7,9 @@ var privateChat = new mongoose.Schema({
     messages:[ {
         content: String,
         candidat: {type: mongoose.Schema.Types.ObjectId, ref: 'Condidat'},
+        name : {type: String ,default :""},
         createdDate: {type: Date, default: Date.now()}
+
 }]
 });
 

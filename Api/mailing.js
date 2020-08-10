@@ -1,7 +1,10 @@
 const nodemailer = require("nodemailer");
-const router  = require ("express").Router()
+const router  = require ("express").Router();
+const passport = require('passport');
+
 const candidat = require("./../Models/CondidatSchema");
-router.post("/",(req,res)=>{
+  
+router.post("/",  passport.authenticate("bearer", { session: false }),(req,res)=>{
     const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -16,7 +19,7 @@ candidat.find().then((candidats)=>{
     candidats.forEach((candidat)=>{
         const mailOptions = {
             to: candidat.email,
-            from: "crmproject.2020@gmail.com",
+            from: req.user.etablisement.email,
             subject: req.body.subject,
             text: req.body.content,
           };
