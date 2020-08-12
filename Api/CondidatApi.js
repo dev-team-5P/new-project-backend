@@ -29,8 +29,7 @@ router.post('/:id/register', async (req, res) => {
 /*************parametrage de compte for condidat ******** */
 router.put('/Parametrage/:id', 
 passport.authenticate("bearer", { session: false }),
-(req,res)=>{
-    
+(req,res)=>{  
     Condidat.findByIdAndUpdate(req.params.id,req.body,(err,resultat)=>{
         if (err) {
             res.send(err);

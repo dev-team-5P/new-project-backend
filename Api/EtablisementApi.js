@@ -31,7 +31,6 @@ router.put('/Parametrage/:id',
             } else {
                 Etablisement.findById(req.params.id,(err,resultat2)=>{
                     res.send(resultat2);
-                    // console.log(resultat2);
                 })
             }
         })
@@ -40,7 +39,6 @@ router.put('/Parametrage/:id',
     router.put('/changepass/:id',
 passport.authenticate("bearer", { session: false}),
  async(req,res)=>{
-    // const superAdmin = await SuperAdmin.findById(req.user.etablisement._id);
    await bycrpt.compare(req.body.oldpass , req.user.etablisement.password).then((oldpass)=>
     {
         console.log(req.user);
@@ -85,8 +83,6 @@ router.post('/ajoucondidat',
             await Condidat.findByIdAndUpdate(condidat._id, { etablisement: etablisement._id });
             res.send(condidat);
         }
-
-
     })
 /********* read condida for etablisement ******** */
 router.get('/getcondidat',
@@ -95,19 +91,13 @@ router.get('/getcondidat',
         const getcondidat = await Condidat.find({ etablisement: req.user.etablisement._id });
         res.send(getcondidat)
     });
-
 router.get("/:id",
     passport.authenticate("bearer", { session: false }),
     async (req, res) => {
         const condidat = await Condidat.findById(req.params.id);
-        // if (err) {
-        //   res.send(err);
-        // } else {
-        res.send(condidat);
-        // }
+        res.send(condidat); 
     });
-// }
-//   );
+
 /**************update condidat for etablisement**********/
 router.put('/updatecondidat/:id',
     passport.authenticate("bearer", { session: false }),
@@ -127,7 +117,4 @@ router.delete('/delete/:id',
         await Condidat.findByIdAndDelete(req.params.id);
         res.send({ message: 'User Deleted' })
     });
-    
-
-
 module.exports = router
