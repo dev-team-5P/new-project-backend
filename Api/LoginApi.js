@@ -17,7 +17,6 @@ router.post('', async(req,res)=>{
     const ValidEmailCondidat = condidat ? condidat.email : undefined;
     const ValidEmailSperAdmin = superAdmin ? superAdmin.email : undefined;
 
-
     if (ValidEmailEtablisement || ValidEmailCondidat || ValidEmailSperAdmin ) {
         if (etablisement) {
             const validpassetab = await bycrpt.compare(req.body.password,etablisement.password);
@@ -68,6 +67,4 @@ router.post('', async(req,res)=>{
 router.post("/req-reset-password", resetToken.ResetPassword);
 router.post("/valid-password-token", resetToken.ValidPasswordToken);
 router.post("/new-password", resetToken.NewPassword);
-
-
 module.exports = router;

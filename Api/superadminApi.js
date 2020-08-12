@@ -34,7 +34,6 @@ passport.authenticate("bearer", { session: false }),
 router.put('/changepass/:id',
 passport.authenticate("bearer", { session: false}),
  async(req,res)=>{
-    // const superAdmin = await SuperAdmin.findById(req.user.etablisement._id);
    await bycrypt.compare(req.body.oldpass , req.user.superadmin.password).then((oldpass)=>
     {
         console.log(req.user);

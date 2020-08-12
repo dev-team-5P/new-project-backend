@@ -2,9 +2,6 @@ const router = require("express").Router();
 const process = require("process");
 const multer = require("multer");
 const Etablisement = require('./../Models/EtablisementSchema');
-
-
-
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, process.cwd() + "/upload");
@@ -21,7 +18,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 router.put(
   "/:id",
-//   passport.authenticate("bearer", { session: false }),
   upload.single("image"),
   (req, res) => {
     if (!req.file) return res.send({ message: "no image uploaded" });
