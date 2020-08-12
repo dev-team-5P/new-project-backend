@@ -7,6 +7,7 @@ const Condidat = new mongoose.Schema({
     telephone: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
+    logo:{type: String},
     role: { type: String, default: "condidat" },
     etablisement: {
         type: mongoose.Schema.Types.ObjectId,
