@@ -9,10 +9,6 @@ const Etablisement = new mongoose.Schema({
     password : {type:String ,required:true},
     logo: String,
     role: { type: String, default: "etablisement" },
- admin: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Admin",
-    },
     resetToken: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "RestToken",
