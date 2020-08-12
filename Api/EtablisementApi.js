@@ -29,7 +29,10 @@ router.put('/Parametrage/:id',
             if (err) {
                 res.send(err);
             } else {
-                res.send(resultat);
+                Etablisement.findById(req.params.id,(err,resultat2)=>{
+                    res.send(resultat2);
+                    // console.log(resultat2);
+                })
             }
         })
     })

@@ -34,7 +34,10 @@ router.put(
           if (err) {
             res.send(err);
           }
-          res.send(resultat);
+             Etablisement.findById(req.params.id,(err,resultat2)=>{
+                    res.send(resultat2);
+                    console.log(resultat2);
+                });
         }
       );
     }
