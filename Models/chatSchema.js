@@ -1,4 +1,3 @@
-  
 var mongoose = require('mongoose');
 
 var privateChat = new mongoose.Schema({
@@ -12,5 +11,4 @@ var privateChat = new mongoose.Schema({
         createdDate: {type: Date, default: Date.now()}
 }]
 });
-
 module.exports = mongoose.model('privateChat', privateChat);
