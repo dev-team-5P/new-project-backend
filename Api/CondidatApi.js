@@ -35,7 +35,9 @@ passport.authenticate("bearer", { session: false }),
         if (err) {
             res.send(err);
         } else {
-            res.send(resultat);
+            Condidat.findById(req.params.id,(err,resultat2)=>{
+                res.send(resultat2);
+            })
         }
     })
 })
